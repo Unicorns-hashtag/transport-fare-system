@@ -1,0 +1,7 @@
+{
+  "origin": "Ilaro",
+  "destination": "Lagos",
+  "vehicleType": "Bus",
+  "fareAmount": 1500,
+  "distanceKm": 45
+}
