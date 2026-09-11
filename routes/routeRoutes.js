@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Route = require('../models/Route');
+const authMiddleware = require('../middleware/authMiddleware');
 
 // GET all routes
-router.get('/', async (req, res) => {
+router.get('/', authMiddleware, async (req, res) => {
   try {
     const routes = await Route.find().sort({ createdAt: -1 });
     res.json(routes);
@@ -13,7 +14,7 @@ router.get('/', async (req, res) => {
 });
 
 // GET a single route by ID
-router.get('/:id', async (req, res) => {
+router.get('/:id', authMiddleware, async (req, res) => {
   try {
     const route = await Route.findById(req.params.id);
     if (!route) return res.status(404).json({ error: 'Route not found' });
@@ -24,7 +25,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // CREATE a new route
-router.post('/', async (req, res) => {
+router.post('/', authMiddleware, async (req, res) => {
   try {
     const newRoute = new Route(req.body);
     const savedRoute = await newRoute.save();
@@ -35,7 +36,7 @@ router.post('/', async (req, res) => {
 });
 
 // UPDATE a route
-router.put('/:id', async (req, res) => {
+router.put('/:id', authMiddleware, async (req, res) => {
   try {
     const updatedRoute = await Route.findByIdAndUpdate(
       req.params.id,
@@ -50,7 +51,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE a route
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authMiddleware, async (req, res) => {
   try {
     const deletedRoute = await Route.findByIdAndDelete(req.params.id);
     if (!deletedRoute) return res.status(404).json({ error: 'Route not found' });

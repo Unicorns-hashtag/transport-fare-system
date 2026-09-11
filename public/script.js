@@ -3,12 +3,43 @@ const API_URL = '/api/routes';
 const routeForm = document.getElementById('routeForm');
 const routesTableBody = document.getElementById('routesTableBody');
 
-let editingId = null; // tracks if we're currently editing a route
+let editingId = null;
+
+// Get the saved token
+const token = localStorage.getItem('token');
+document.getElementById('logoutBtn')?.addEventListener('click', () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('username');
+  window.location.href = 'login.html';
+});
+
+// If there's no token, redirect to login immediately
+if (!token) {
+  window.location.href = 'login.html';
+}
+
+// Helper: standard headers including the auth token
+function authHeaders() {
+  return {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  };
+}
 
 // Fetch and display all routes
 async function loadRoutes() {
   try {
-    const res = await fetch(API_URL);
+    const res = await fetch(API_URL, {
+      headers: authHeaders()
+    });
+
+    if (res.status === 401) {
+      // Token invalid/expired - force re-login
+      localStorage.removeItem('token');
+      window.location.href = 'login.html';
+      return;
+    }
+
     const routes = await res.json();
     renderTable(routes);
   } catch (err) {
@@ -16,9 +47,8 @@ async function loadRoutes() {
   }
 }
 
-// Build the table rows from route data
 function renderTable(routes) {
-  routesTableBody.innerHTML = ''; // clear existing rows
+  routesTableBody.innerHTML = '';
 
   routes.forEach(route => {
     const row = document.createElement('tr');
@@ -37,7 +67,6 @@ function renderTable(routes) {
   });
 }
 
-// Handle form submit (Add OR Update)
 routeForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -51,45 +80,46 @@ routeForm.addEventListener('submit', async (e) => {
 
   try {
     if (editingId) {
-      // UPDATE existing route
       await fetch(`${API_URL}/${editingId}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: authHeaders(),
         body: JSON.stringify(routeData)
       });
       editingId = null;
       routeForm.querySelector('button').textContent = 'Add Route';
     } else {
-      // CREATE new route
       await fetch(API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: authHeaders(),
         body: JSON.stringify(routeData)
       });
     }
 
     routeForm.reset();
-    loadRoutes(); // refresh table
+    loadRoutes();
   } catch (err) {
     console.error('Error saving route:', err);
   }
 });
 
-// Handle Edit and Delete button clicks (event delegation)
 routesTableBody.addEventListener('click', async (e) => {
   const id = e.target.dataset.id;
   if (!id) return;
 
   if (e.target.classList.contains('delete-btn')) {
     if (confirm('Are you sure you want to delete this route?')) {
-      await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+      await fetch(`${API_URL}/${id}`, {
+        method: 'DELETE',
+        headers: authHeaders()
+      });
       loadRoutes();
     }
   }
 
   if (e.target.classList.contains('edit-btn')) {
-    // Fetch that route's data and fill the form
-    const res = await fetch(`${API_URL}/${id}`);
+    const res = await fetch(`${API_URL}/${id}`, {
+      headers: authHeaders()
+    });
     const route = await res.json();
 
     document.getElementById('origin').value = route.origin;
@@ -104,5 +134,4 @@ routesTableBody.addEventListener('click', async (e) => {
   }
 });
 
-// Load routes when page first opens
 loadRoutes();
