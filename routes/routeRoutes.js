@@ -3,7 +3,17 @@ const router = express.Router();
 const Route = require('../models/Route');
 const authMiddleware = require('../middleware/authMiddleware');
 
-// GET all routes
+// PUBLIC: minimal read-only data for the landing page fare calculator
+router.get('/public/all', async (req, res) => {
+  try {
+    const routes = await Route.find().select('origin destination vehicleType fareAmount -_id');
+    res.json(routes);
+  } catch (err) {
+    res.status(500).json({ error: 'Unable to load fare data' });
+  }
+});
+
+// GET all routes (PROTECTED)
 router.get('/', authMiddleware, async (req, res) => {
   try {
     const routes = await Route.find().sort({ createdAt: -1 });
@@ -13,7 +23,7 @@ router.get('/', authMiddleware, async (req, res) => {
   }
 });
 
-// GET a single route by ID
+// GET a single route by ID (PROTECTED)
 router.get('/:id', authMiddleware, async (req, res) => {
   try {
     const route = await Route.findById(req.params.id);
@@ -24,7 +34,7 @@ router.get('/:id', authMiddleware, async (req, res) => {
   }
 });
 
-// CREATE a new route
+// CREATE a new route (PROTECTED)
 router.post('/', authMiddleware, async (req, res) => {
   try {
     const newRoute = new Route(req.body);
@@ -35,7 +45,7 @@ router.post('/', authMiddleware, async (req, res) => {
   }
 });
 
-// UPDATE a route
+// UPDATE a route (PROTECTED)
 router.put('/:id', authMiddleware, async (req, res) => {
   try {
     const updatedRoute = await Route.findByIdAndUpdate(
@@ -50,7 +60,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
   }
 });
 
-// DELETE a route
+// DELETE a route (PROTECTED)
 router.delete('/:id', authMiddleware, async (req, res) => {
   try {
     const deletedRoute = await Route.findByIdAndDelete(req.params.id);

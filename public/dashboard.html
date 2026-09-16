@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Transport Fare System</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+</head>
+
+<body class="dashboard-layout">
+
+  <div id="nav-container"></div>
+
+  <main class="page-content">
+    <h1>Dashboard</h1>
+    <p style="margin-bottom: 1.5rem; color: #666;">Overview of your system</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Total Routes</h3>
+        <p id="statRoutes">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Total Vehicles</h3>
+        <p id="statVehicles">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Total Passengers</h3>
+        <p id="statPassengers">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Total Trips Recorded</h3>
+        <p id="statTrips">0</p>
+      </div>
+    </div>
+
+    <div class="dashboard-widgets">
+      <div class="widget-card">
+        <h2>Revenue (Last 7 Days)</h2>
+        <canvas id="revenueChart"></canvas>
+      </div>
+
+      <div class="widget-card">
+        <h2>Recent Activity</h2>
+        <ul id="activityList" class="activity-list">
+          <li class="activity-empty">No recent activity yet.</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <script src="nav.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+
+</html>

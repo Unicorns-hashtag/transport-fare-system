@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Passengers - Transport Fare System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-layout">
+
+  <div id="nav-container"></div>
+
+  <main class="page-content">
+    <h1>Passengers</h1>
+    <p style="margin-bottom: 1.5rem; color: #666;">Manage passenger records</p>
+
+    <section class="form-section">
+      <h2>Add New Passenger</h2>
+      <form id="passengerForm">
+        <input type="text" id="fullName" placeholder="Full Name" required>
+        <input type="text" id="phone" placeholder="Phone Number" required>
+        <input type="email" id="email" placeholder="Email (optional)">
+        <input type="text" id="idNumber" placeholder="ID Number (optional)">
+        <button type="submit">Add Passenger</button>
+      </form>
+    </section>
+
+    <section class="table-section">
+      <h2>All Passengers</h2>
+      <table id="passengersTable">
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>ID Number</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="passengersTableBody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="nav.js"></script>
+  <script src="passengers.js"></script>
+  <script src="toast.js"></script>
+</body>
+</html>

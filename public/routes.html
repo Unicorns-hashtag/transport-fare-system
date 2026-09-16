@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transport Fare Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dashboard-layout">
+
+  <div id="nav-container"></div>
+
+  <main class="page-content">
+    <h1>Routes & Fares</h1>
+    <p style="margin-bottom: 1.5rem; color: #666;">Manage routes and their fares</p>
+    <!-- Form to add a new route -->
+    <section class="form-section">
+      <h2>Add New Route</h2>
+      <form id="routeForm">
+        <input type="text" id="origin" placeholder="Origin (e.g. Ilaro)" required>
+        <input type="text" id="destination" placeholder="Destination (e.g. Lagos)" required>
+        <select id="vehicleType" required>
+          <option value="Bus">Bus</option>
+          <option value="Taxi">Taxi</option>
+          <option value="Keke">Keke</option>
+          <option value="Danfo">Danfo</option>
+        </select>
+        <input type="number" id="fareAmount" placeholder="Fare Amount (₦)" required min="0">
+        <input type="number" id="distanceKm" placeholder="Distance (km) - optional">
+        <button type="submit">Add Route</button>
+      </form>
+    </section>
+
+    <!-- Table showing all routes -->
+    <section class="table-section">
+      <h2>All Routes</h2>
+      <table id="routesTable">
+        <thead>
+          <tr>
+            <th>Origin</th>
+            <th>Destination</th>
+            <th>Vehicle</th>
+            <th>Fare (₦)</th>
+            <th>Distance (km)</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="routesTableBody">
+          <!-- Rows added here by JavaScript -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="nav.js"></script>
+  <script src="toast.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

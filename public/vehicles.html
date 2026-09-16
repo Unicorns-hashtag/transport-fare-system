@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicles - Transport Fare System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dashboard-layout">
+
+  <div id="nav-container"></div>
+
+  <main class="page-content">
+    <h1>Vehicles</h1>
+    <p style="margin-bottom: 1.5rem; color: #666;">Manage your fleet</p>
+
+    <section class="form-section">
+      <h2>Add New Vehicle</h2>
+      <form id="vehicleForm">
+        <select id="vehicleType" required>
+          <option value="">Select Vehicle Type</option>
+          <option value="Bus">Bus</option>
+          <option value="Taxi">Taxi</option>
+          <option value="Keke">Keke</option>
+          <option value="Danfo">Danfo</option>
+        </select>
+        <input type="text" id="plateNumber" placeholder="Plate Number (e.g. LAG-123-XY)" required>
+        <input type="number" id="capacity" placeholder="Capacity (seats)" required min="1">
+        <select id="status">
+          <option value="Active">Active</option>
+          <option value="Under Maintenance">Under Maintenance</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+        <button type="submit">Add Vehicle</button>
+      </form>
+    </section>
+
+    <section class="table-section">
+      <h2>All Vehicles</h2>
+      <table id="vehiclesTable">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Plate Number</th>
+            <th>Capacity</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="vehiclesTableBody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="nav.js"></script>
+  <script src="toast.js"></script>
+  <script src="vehicles.js"></script>
+</body>
+
+</html>

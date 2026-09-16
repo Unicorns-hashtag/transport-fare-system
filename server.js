@@ -29,6 +29,9 @@ mongoose.connect(process.env.MONGO_URI)
 // Routes
 app.use('/api/routes', require('./routes/routeRoutes'));
 app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/vehicles', require('./routes/vehicleRoutes'));
+app.use('/api/passengers', require('./routes/passengerRoutes'));
+app.use('/api/trips', require('./routes/tripRoutes'));
 
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Server is working!' });

@@ -7,11 +7,7 @@ let editingId = null;
 
 // Get the saved token
 const token = localStorage.getItem('token');
-document.getElementById('logoutBtn')?.addEventListener('click', () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('username');
-  window.location.href = 'login.html';
-});
+renderNav('routes');
 
 // If there's no token, redirect to login immediately
 if (!token) {
@@ -28,13 +24,11 @@ function authHeaders() {
 
 // Fetch and display all routes
 async function loadRoutes() {
+  routesTableBody.innerHTML = '<tr><td colspan="6" class="table-loading"><div class="spinner"></div></td></tr>';
   try {
-    const res = await fetch(API_URL, {
-      headers: authHeaders()
-    });
+    const res = await fetch(API_URL, { headers: authHeaders() });
 
     if (res.status === 401) {
-      // Token invalid/expired - force re-login
       localStorage.removeItem('token');
       window.location.href = 'login.html';
       return;
@@ -44,6 +38,7 @@ async function loadRoutes() {
     renderTable(routes);
   } catch (err) {
     console.error('Error loading routes:', err);
+    routesTableBody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#999;">Failed to load routes.</td></tr>';
   }
 }
 
@@ -87,18 +82,21 @@ routeForm.addEventListener('submit', async (e) => {
       });
       editingId = null;
       routeForm.querySelector('button').textContent = 'Add Route';
+      showToast('Route updated successfully!');
     } else {
       await fetch(API_URL, {
         method: 'POST',
         headers: authHeaders(),
         body: JSON.stringify(routeData)
       });
+      showToast('Route added successfully!');
     }
 
     routeForm.reset();
     loadRoutes();
   } catch (err) {
     console.error('Error saving route:', err);
+    showToast('Something went wrong. Try again.', 'error');
   }
 });
 
@@ -108,11 +106,9 @@ routesTableBody.addEventListener('click', async (e) => {
 
   if (e.target.classList.contains('delete-btn')) {
     if (confirm('Are you sure you want to delete this route?')) {
-      await fetch(`${API_URL}/${id}`, {
-        method: 'DELETE',
-        headers: authHeaders()
-      });
+      await fetch(`${API_URL}/${id}`, { method: 'DELETE', headers: authHeaders() });
       loadRoutes();
+      showToast('Route deleted.');
     }
   }
 

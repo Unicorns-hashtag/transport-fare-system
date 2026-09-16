@@ -27,7 +27,7 @@ loginForm.addEventListener('submit', async (e) => {
     localStorage.setItem('username', data.username);
 
     // Redirect to the dashboard
-    window.location.href = 'index.html';
+    window.location.href = 'dashboard.html';
   } catch (err) {
     errorMsg.textContent = 'Something went wrong. Try again.';
     errorMsg.style.display = 'block';

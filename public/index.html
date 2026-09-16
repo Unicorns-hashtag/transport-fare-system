@@ -6,54 +6,100 @@
   <title>Transport Fare Management System</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="landing-body">
 
-  <header>
-    <h1>🚍 Transport Fare Management System</h1>
-    <p>Admin Dashboard</p>
-    <button id="logoutBtn" style="margin-top:0.5rem; padding:0.4rem 1rem; background:#dc2626; color:white; border:none; border-radius:4px; cursor:pointer;">Logout</button>
-</header>
+  <!-- Header -->
+  <header class="landing-header">
+    <div class="landing-header-inner">
+      <div class="landing-logo">🚍 <span>FareSys</span></div>
+      <nav class="landing-nav">
+        <a href="#home">Home</a>
+        <a href="#calculator">Check Fare</a>
+        <a href="#routes">Routes</a>
+        <a href="#about">About</a>
+      </nav>
+      <a href="login.html" class="landing-login-btn">Admin Login</a>
+    </div>
+  </header>
 
-  <main>
-    <!-- Form to add a new route -->
-    <section class="form-section">
-      <h2>Add New Route</h2>
-      <form id="routeForm">
-        <input type="text" id="origin" placeholder="Origin (e.g. Ilaro)" required>
-        <input type="text" id="destination" placeholder="Destination (e.g. Lagos)" required>
-        <select id="vehicleType" required>
-          <option value="Bus">Bus</option>
-          <option value="Taxi">Taxi</option>
-          <option value="Keke">Keke</option>
-          <option value="Danfo">Danfo</option>
+  <!-- Hero -->
+  <section class="hero" id="home" style="background-image: linear-gradient(rgba(10,30,20,0.55), rgba(10,30,20,0.75)), url('images/hero-bus.png');">
+    <div class="hero-content">
+      <span class="hero-tag">Reliable. Transparent. Fair.</span>
+      <h1>Know Your Fare Before You Travel</h1>
+      <p>A simple, reliable Transport Fare Management System — check fares instantly, view routes, and travel with confidence.</p>
+      <div class="hero-buttons">
+        <a href="#calculator" class="btn-primary">Check Fare Now</a>
+        <a href="#routes" class="btn-secondary">View Routes</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fare Calculator -->
+  <section class="calculator-section" id="calculator">
+    <div class="calculator-card">
+      <div class="calculator-intro">
+        <div class="calculator-icon">🧮</div>
+        <div>
+          <h2>Check Your Fare</h2>
+          <p>Select your route and vehicle type to see the fare instantly.</p>
+        </div>
+      </div>
+      <form id="fareCalcForm" class="calculator-form">
+        <select id="calcOrigin" required>
+          <option value="">Select Origin</option>
         </select>
-        <input type="number" id="fareAmount" placeholder="Fare Amount (₦)" required min="0">
-        <input type="number" id="distanceKm" placeholder="Distance (km) - optional">
-        <button type="submit">Add Route</button>
+        <select id="calcDestination" required>
+          <option value="">Select Destination</option>
+        </select>
+        <select id="calcVehicle" required>
+          <option value="">Select Vehicle</option>
+        </select>
+        <button type="submit">Get Fare</button>
       </form>
-    </section>
+      <p id="calcResult"></p>
+    </div>
+  </section>
 
-    <!-- Table showing all routes -->
-    <section class="table-section">
-      <h2>All Routes</h2>
-      <table id="routesTable">
-        <thead>
-          <tr>
-            <th>Origin</th>
-            <th>Destination</th>
-            <th>Vehicle</th>
-            <th>Fare (₦)</th>
-            <th>Distance (km)</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="routesTableBody">
-          <!-- Rows added here by JavaScript -->
-        </tbody>
-      </table>
-    </section>
-  </main>
+  <!-- Features -->
+  <section class="features-section" id="about">
+    <div class="feature">
+      <div class="feature-icon">✅</div>
+      <h3>Transparent Fares</h3>
+      <p>No hidden charges — just fair, upfront pricing.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🛣️</div>
+      <h3>Multiple Routes</h3>
+      <p>Coverage across several routes and vehicle types.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🧾</div>
+      <h3>Accurate Records</h3>
+      <p>Every trip and fare properly logged and tracked.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔒</div>
+      <h3>Secure System</h3>
+      <p>Admin-protected data management behind the scenes.</p>
+    </div>
+  </section>
 
-  <script src="script.js"></script>
+  <!-- Popular Routes -->
+  <section class="routes-preview-section" id="routes">
+    <h2>Available Routes</h2>
+    <p class="section-subtitle">A look at some of the routes currently in our system</p>
+    <div id="routesPreviewGrid" class="routes-preview-grid">
+      <!-- Filled dynamically by JS -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="landing-footer">
+    <p>🚍 Transport Fare Management System</p>
+    <p>&copy; 2026 Built by Stephen Naomi Adesola.</p>
+  </footer>
+
+  <script src="landing.js"></script>
 </body>
 </html>

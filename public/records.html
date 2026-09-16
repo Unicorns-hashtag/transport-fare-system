@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Records - Transport Fare System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dashboard-layout">
+
+  <div id="nav-container"></div>
+
+  <main class="page-content">
+    <h1>Trip Records</h1>
+    <p style="margin-bottom: 1.5rem; color: #666;">Log and view trip history</p>
+
+    <section class="form-section">
+      <h2>Log New Trip</h2>
+      <form id="tripForm">
+        <select id="passengerSelect" required>
+          <option value="">Select Passenger</option>
+        </select>
+        <select id="routeSelect" required>
+          <option value="">Select Route</option>
+        </select>
+        <select id="vehicleSelect" required>
+          <option value="">Select Vehicle</option>
+        </select>
+        <input type="number" id="fareCharged" placeholder="Fare Charged (₦)" required min="0">
+        <button type="submit">Log Trip</button>
+      </form>
+    </section>
+
+    <section class="table-section">
+      <h2>Trip History</h2>
+      <table id="tripsTable">
+        <thead>
+          <tr>
+            <th>Passenger</th>
+            <th>Route</th>
+            <th>Vehicle</th>
+            <th>Fare (₦)</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tripsTableBody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="nav.js"></script>
+  <script src="toast.js"></script>
+  <script src="records.js"></script>
+</body>
+
+</html>
